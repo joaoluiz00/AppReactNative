@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {View, Text, FlatList, StyleSheet} from 'react-native';
-import {Divider, MD3LightTheme as PaperTheme} from 'react-native-paper';
+import {Divider, MD3LightTheme as PaperTheme, Button} from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
 import axios from 'axios';
 
-const ListaUsuariosScreen = () => {
+const ListaUsuarioScreen = () => {
+
+    const navigation = useNavigation();
 
     const [usuarios, setUsuarios] = useState([]);
 
@@ -25,6 +28,10 @@ const ListaUsuariosScreen = () => {
                 renderItem={({item}) => (
                     <View>
                         <Text style={styles.text}>{item.nome}</Text>
+                        <Button mode="contained" onPress={() =>
+                                navigation.navigate('DetalhesUsuario', {id: item.id})}>
+                                Ver Mais
+                        </Button>
                         <Divider/>
                     </View>
                 )}
@@ -39,4 +46,4 @@ const styles = StyleSheet.create({
     container: {flex: 1, backgroundColor: PaperTheme.colors.elevation.level1}
 });
 
-export default ListaUsuariosScreen;
+export default ListaUsuarioScreen;
